@@ -1,0 +1,127 @@
+[gd_scene load_steps=18 format=3 uid="uid://qvs4jppbx4de"]
+
+[sub_resource type="Curve" id="Curve_3oo6d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.731707, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3oo6d"]
+curve = SubResource("Curve_3oo6d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nfeox"]
+particle_flag_align_y = true
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 80.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_3oo6d")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17npe"]
+albedo_color = Color(0.927962, 0.44573, 0.366843, 1)
+metallic = 0.99
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.789174, 0.428345, 5.77569e-07, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3el85"]
+material = SubResource("StandardMaterial3D_17npe")
+top_radius = 1.0
+bottom_radius = 0.0
+height = 10.0
+
+[sub_resource type="Curve" id="Curve_17npe"]
+_data = [Vector2(0, 0.0674158), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nfeox"]
+curve = SubResource("Curve_17npe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aw4cw"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+spread = 90.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_nfeox")
+color = Color(0.537011, 0.537011, 0.537011, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aw4cw"]
+transparency = 1
+vertex_color_use_as_albedo = true
+metallic = 0.99
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_cun36"]
+material = SubResource("StandardMaterial3D_aw4cw")
+radius = 5.0
+height = 10.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Gradient" id="Gradient_3oo6d"]
+colors = PackedColorArray(0.992157, 0.635294, 0, 1, 1, 0.219608, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3el85"]
+gradient = SubResource("Gradient_3oo6d")
+
+[sub_resource type="Curve" id="Curve_nfeox"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 2.24719), 0.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hbmxj"]
+curve = SubResource("Curve_nfeox")
+
+[sub_resource type="Curve" id="Curve_3el85"]
+_data = [Vector2(0, 0.0674158), 0.0, 0.0, 0, 0, Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_xfoey"]
+curve = SubResource("Curve_3el85")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xfoey"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+spread = 90.0
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_xfoey")
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("GradientTexture1D_3el85")
+emission_curve = SubResource("CurveTexture_hbmxj")
+
+[node name="Explosion" type="Node3D"]
+
+[node name="Debris" type="GPUParticles3D" parent="."]
+amount = 24
+lifetime = 3.0
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_nfeox")
+draw_pass_1 = SubResource("CylinderMesh_3el85")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+amount = 12
+lifetime = 5.0
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_aw4cw")
+draw_pass_1 = SubResource("SphereMesh_cun36")
+
+[node name="Fire" type="GPUParticles3D" parent="."]
+amount = 12
+lifetime = 3.0
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_xfoey")
+draw_pass_1 = SubResource("SphereMesh_cun36")
