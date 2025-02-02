@@ -8,4 +8,5 @@ Things to make it better:
   - Better collisions
   - Add visual orbits and make them interactive ie, change how elliptical they are
   - Add ability to create bodies (planets, satellites, asteroids, comets)
+    
 Code is shit ngl
